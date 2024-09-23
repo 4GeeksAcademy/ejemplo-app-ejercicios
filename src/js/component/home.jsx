@@ -1,26 +1,55 @@
-import React from "react";
+import React, { useState } from 'react';
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
 
-//create your first component
-const Home = () => {
-	return (
-		<div className="text-center">
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
-		</div>
-	);
-};
+import 'bootstrap/dist/css/bootstrap.min.css';
+import ExerciseList from './exerciseList';
+import ProgressTracker from './progressTracker';
+import MealTracker from './mealTracker';
 
-export default Home;
+function App() {
+  const [view, setView] = useState('exercise');
+
+  return (
+    <div className="App">
+      <header className="App-header bg-dark text-white">
+        <h1>Fitness App</h1>
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+          <ul className="navbar-nav mr-auto">
+            <li className="nav-item">
+              <button
+                className={`nav-link btn ${view === 'exercise' ? 'active' : ''}`}
+                onClick={() => setView('exercise')}
+              >
+                Ejercicios
+              </button>
+            </li>
+            <li className="nav-item">
+              <button
+                className={`nav-link btn ${view === 'meals' ? 'active' : ''}`}
+                onClick={() => setView('meals')}
+              >
+                Comidas
+              </button>
+            </li>
+            <li className="nav-item">
+              <button
+                className={`nav-link btn ${view === 'progress' ? 'active' : ''}`}
+                onClick={() => setView('progress')}
+              >
+                Progreso
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </header>
+
+      <main className="container mt-4">
+        {view === 'exercise' && <ExerciseList />}
+        {view === 'meals' && <MealTracker />}
+        {view === 'progress' && <ProgressTracker />}
+      </main>
+    </div>
+  );
+}
+
+export default App;
